@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux & Raspberry Pi One-Liners</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-green: #2ea043;
+            --accent-blue: #58a6ff;
+            --code-bg: #010409;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--accent-blue);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .command-box {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            color: #7ee787;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        button.copy-btn {
+            background-color: #21262d;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        button.copy-btn:hover {
+            background-color: #30363d;
+            border-color: var(--text-secondary);
+        }
+
+        button.copy-btn.copied {
+            background-color: var(--accent-green);
+            color: #ffffff;
+            border-color: var(--accent-green);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>🐧 Linux Utility One-Liners</h1>
+            <p class="subtitle">Quick maintenance, cleanup, and automation scripts for Linux & Raspberry Pi.</p>
+        </header>
+
+        <main>
+            <!-- Card 1: System Update -->
+            <div class="card">
+                <h2>⚡ System Update & Reboot</h2>
+                <p>Updates package lists, performs distribution upgrades, removes unused dependencies, clears cache, and reboots safely after a 5-second delay.</p>
+                <div class="command-box">
+                    <code>curl -fsSL https://cephandriusmaxtori.github.io/LinuxOneLiners/update.sh | sudo bash</code>
+                    <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                </div>
+            </div>
+
+            <!-- Card 2: Docker Update -->
+            <div class="card">
+                <h2>🐳 Docker Container Updater</h2>
+                <p>Pulls updated image tags for Docker Compose stacks, restarts updated containers, and prunes unused dangling images to free up storage.</p>
+                <div class="command-box">
+                    <code>curl -fsSL https://cephandriusmaxtori.github.io/LinuxOneLiners/docker-update.sh | bash</code>
+                    <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                </div>
+            </div>
+
+            <!-- Card 3: Deep Clean -->
+            <div class="card">
+                <h2>🧹 System & Log Cleanup</h2>
+                <p>Vacuums systemd journalctl logs older than 3 days, wipes temp/thumbnail caches, and truncates large system log files to preserve space.</p>
+                <div class="command-box">
+                    <code>curl -fsSL https://cephandriusmaxtori.github.io/LinuxOneLiners/system-clean.sh | sudo bash</code>
+                    <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>View source and contribute on <a href="https://github.com/CephandriusMaxtori/LinuxOneLiners" target="_blank">GitHub</a>.</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyCommand(button) {
+            const commandText = button.previousElementSibling.innerText;
+            navigator.clipboard.writeText(commandText).then(() => {
+                button.innerText = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.innerText = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+
+</body>
+</html>
